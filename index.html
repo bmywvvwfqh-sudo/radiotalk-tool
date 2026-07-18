@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RadioTalk - 放射師多國語音溝通輔助系統</title>
+    
+    <!-- Meta tags for PWA -->
+    <meta name="theme-color" content="#0b0f19">
+    <meta name="description" content="專為放射師設計的多國語音輔助翻譯溝通平台，支援台語、英文、日韓與東南亞語系，包含離線使用功能。">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Background glowing graphics -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <!-- Offline Notification Banner -->
+    <div id="offlineBanner" class="offline-banner">
+        <i class="fa-solid fa-wifi-slash"></i> 您目前處於離線狀態。自訂句子的翻譯暫時無法使用，但「常用指令預設語音」仍可離線播放！
+    </div>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo-section">
+            <i class="fa-solid fa-house-laptop"></i>
+            <div>
+                <h1>RadioTalk</h1>
+                <span class="badge">放射科語音輔助</span>
+            </div>
+        </div>
+
+        <!-- Target Language Selector -->
+        <div class="lang-selector">
+            <button class="lang-btn active" data-lang="english">
+                <span>🇺🇸</span> English
+            </button>
+            <button class="lang-btn" data-lang="japanese">
+                <span>🇯🇵</span> 日本語
+            </button>
+            <button class="lang-btn" data-lang="korean">
+                <span>🇰🇷</span> 한국어
+            </button>
+            <button class="lang-btn" data-lang="vietnamese">
+                <span>🇻🇳</span> Tiếng Việt
+            </button>
+            <button class="lang-btn" data-lang="thai">
+                <span>🇹🇭</span> ไทย
+            </button>
+            <button class="lang-btn" data-lang="indonesian">
+                <span>🇮🇩</span> Indonesia
+            </button>
+            <button class="lang-btn" data-lang="filipino">
+                <span>🇵🇭</span> Filipino
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main>
+        
+        <!-- Category Tab Buttons -->
+        <div class="tabs-container">
+            <button class="tab-btn active" data-tab="breathing">
+                <i class="fa-solid fa-lungs"></i> 呼吸控制
+            </button>
+            <button class="tab-btn" data-tab="posture">
+                <i class="fa-solid fa-bed"></i> 姿勢調整
+            </button>
+            <button class="tab-btn" data-tab="general">
+                <i class="fa-solid fa-comments"></i> 基本溝通
+            </button>
+        </div>
+
+        <!-- Breathing Controls Section -->
+        <section id="breathingSection" class="instruction-section active">
+            <div id="breathingGrid" class="grid-layout">
+                <!-- Injected dynamically via app.js -->
+            </div>
+        </section>
+
+        <!-- Posture Adjustments Section -->
+        <section id="postureSection" class="instruction-section">
+            <div id="postureGrid" class="grid-layout">
+                <!-- Injected dynamically via app.js -->
+            </div>
+        </section>
+
+        <!-- General Communication Section -->
+        <section id="generalSection" class="instruction-section">
+            <div id="generalGrid" class="grid-layout">
+                <!-- Injected dynamically via app.js -->
+            </div>
+        </section>
+
+        <!-- Custom Translation & Voice Input Panel -->
+        <div class="custom-translate-panel">
+            <div class="custom-translate-title">
+                <i class="fa-solid fa-language"></i> 臨時自訂句子翻譯 (輸入繁體中文)
+            </div>
+            <div class="translate-input-wrapper">
+                <input type="text" id="translateInput" class="translate-input" placeholder="例如：請把脖子拉長，或是說話輸入..." autocomplete="off">
+                <button id="micBtn" class="voice-input-btn" title="語音輸入 (繁體中文)">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+                <button id="playBtn" class="play-input-btn" title="翻譯並撥放">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+            </div>
+            
+            <!-- Result text for verification -->
+            <div id="resultCard" class="translation-result-card">
+                <div id="resultLang" class="result-lang-label">English</div>
+                <div id="resultText" class="result-text">...</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Patient Screen Visualizer Overlay (Full Screen) -->
+    <div id="patientOverlay" class="patient-screen">
+        <button id="closeOverlay" class="close-overlay" title="關閉畫面 (Esc)">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        
+        <div id="overlayOriginal" class="overlay-original">吸氣，憋住氣</div>
+        <div id="overlayTarget" class="overlay-target">Breathe in, and hold your breath</div>
+        <div id="overlayPronunciation" class="overlay-pronunciation">Breathe in and hold</div>
+        
+        <!-- Breathing Visual Indicator -->
+        <div id="breathingVisual" class="breathing-visual">
+            <div class="breath-circle"></div>
+            <i class="breathing-icon fa-solid fa-lungs"></i>
+        </div>
+        <div id="breathingLabel" class="breathing-label">HOLD BREATH / 憋氣</div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toastNotification" class="toast">
+        <i class="fa-solid fa-info-circle"></i>
+        <span>提示訊息</span>
+    </div>
+
+    <!-- Script imports -->
+    <script src="app.js"></script>
+    <script>
+        // Register PWA service worker for offline loading
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered successfully!', reg))
+                    .catch(err => console.error('Service Worker registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>
