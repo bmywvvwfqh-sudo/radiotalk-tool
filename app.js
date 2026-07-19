@@ -168,6 +168,38 @@ const PRESET_COMMANDS = {
     ],
     general: [
         {
+            id: 'remove_metals',
+            type: 'general',
+            icon: 'fa-ban',
+            title: '請移除金屬物品',
+            translations: {
+                taiwanese: { text: '請共金屬物件提落來', romaji: 'Tshiánn kā kim-sio̍k mi̍h-kiānn thê-lo̍h-lâi' },
+                english: { text: 'Please remove all metal objects', romaji: 'Remove metal objects' },
+                vietnamese: { text: 'Vui lòng tháo bỏ các vật dụng bằng kim loại', romaji: 'Tháo bỏ đồ kim loại' },
+                thai: { text: 'กรุณาถอดสิ่งของที่เป็นโลหะออกครับ / ค่ะ', romaji: 'Ka-ru-na thot sing-khong thi pen lo-ha ok' },
+                indonesian: { text: 'Silakan lepaskan semua benda logam Anda', romaji: 'Lepaskan benda logam' },
+                filipino: { text: 'Mangyaring alisin ang anumang bagay na metal', romaji: 'Alisin ang bagay na metal' },
+                korean: { text: '금속 물질을 모두 제거해 주세요', romaji: 'Geumsok muljireul modu jegyeohae juseyo' },
+                japanese: { text: '金属類をすべて外してください', romaji: 'Kinzokurui wo subete hazushite kudasai' }
+            }
+        },
+        {
+            id: 'take_off_bra',
+            type: 'general',
+            icon: 'fa-shirt',
+            title: '請脫掉內衣',
+            translations: {
+                taiwanese: { text: '請共內衣剝落來', romaji: 'Tshiánn kā lāi-i pak-lo̍h-lâi' },
+                english: { text: 'Please take off your bra', romaji: 'Take off your bra' },
+                vietnamese: { text: 'Vui lòng cởi áo ngực', romaji: 'Cởi áo ngực' },
+                thai: { text: 'กรุณาถอดเสื้อชั้นในออกครับ / ค่ะ', romaji: 'Ka-ru-na thot suea-chan-nai ok' },
+                indonesian: { text: 'Silakan lepaskan bra Anda', romaji: 'Lepaskan bra Anda' },
+                filipino: { text: 'Mangyaring tanggalin ang iyong bra', romaji: 'Tanggalin ang iyong bra' },
+                korean: { text: '속옷(브래지어)을 벗어 주세요', romaji: 'Sogot(bra-zier)eul beoseo juseyo' },
+                japanese: { text: 'ブラジャーを外してください', romaji: 'Burajaa wo hazushite kudasai' }
+            }
+        },
+        {
             id: 'come_in',
             type: 'general',
             icon: 'fa-door-open',
