@@ -240,7 +240,7 @@ let synth = window.speechSynthesis;
 let voices = [];
 let recognition = null;
 let overlayTimeout = null;
-let currentPlayingAudio = null;
+let audioUnlocked = false;
 
 // Speech Synthesis Languages Map
 const LANG_VOICES = {
@@ -323,6 +323,9 @@ function stopListening() {
 
 // Setup Interaction Listeners
 function setupEventListeners() {
+    // Unlock audio context on mobile devices on the very first tap
+    document.addEventListener('click', unlockAudio, { once: true });
+
     // Language Buttons Selection
     const langBtns = document.querySelectorAll('.lang-btn');
     langBtns.forEach(btn => {
@@ -514,41 +517,71 @@ function triggerCommand(command) {
 }
 
 // Text-to-Speech Engine
-function speakText(text, langKey, commandId = null) {
-    // 1. Cancel current playing custom Audio elements
-    if (currentPlayingAudio) {
-        currentPlayingAudio.pause();
-        currentPlayingAudio = null;
+// Mobile Audio Unlocker: pre-plays silent audio & silent synthesis to bypass autoplay blocks
+function unlockAudio() {
+    if (audioUnlocked) return;
+    
+    // 1. Unlock Web Speech Synthesis
+    if (synth) {
+        try {
+            // A single space character triggers a silent voice synthesis to unlock context
+            const silentUtterance = new SpeechSynthesisUtterance(' ');
+            synth.speak(silentUtterance);
+        } catch (e) {
+            console.warn("Failed to unlock SpeechSynthesis:", e);
+        }
     }
+    
+    // 2. Unlock HTML5 Audio Context using the dummy player
+    const dummy = document.getElementById('dummyUnlockPlayer');
+    if (dummy) {
+        dummy.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAAA";
+        dummy.play()
+            .then(() => {
+                console.log("Global audio player context unlocked successfully via dummy player.");
+                audioUnlocked = true;
+            })
+            .catch(err => {
+                console.warn("Failed to unlock global audio context:", err);
+            });
+    }
+}
 
-    // 2. Cancel native browser speech synthesis
+// Text-to-Speech Engine
+function speakText(text, langKey, commandId = null) {
+    const player = document.getElementById('globalAudioPlayer');
+    if (!player) return;
+
+    // 1. Stop current playing custom audio and Web Speech Synthesis
+    player.pause();
     if (synth) {
         synth.cancel();
     }
 
-    // 3. Try to play local custom pre-recorded audio files if it is a preset command
+    // 2. Try to play local custom pre-recorded audio files if it is a preset command
     if (commandId) {
         const localAudioUrl = `audio/${langKey}/${commandId}.mp3`;
-        const audio = new Audio(localAudioUrl);
-        currentPlayingAudio = audio;
-
-        audio.play()
+        player.src = localAudioUrl;
+        
+        player.play()
             .then(() => {
                 console.log(`Playing local custom audio: ${localAudioUrl}`);
             })
             .catch(err => {
-                // If local audio file is not found (404) or blocked, fall back to online neural voice (Google TTS)
-                console.log(`Local audio not found for ${localAudioUrl}, falling back to online TTS.`);
-                playOnlineTTS(text, langKey);
+                // If local audio file is not found (404) or fails, fall back to online neural voice (Google TTS)
+                console.log(`Local audio play failed (${localAudioUrl}), falling back to online TTS.`);
+                playOnlineTTS(text, langKey, player);
             });
     } else {
-        playOnlineTTS(text, langKey);
+        playOnlineTTS(text, langKey, player);
     }
 }
 
-// Play high-quality neural voice via Google Translate TTS
-function playOnlineTTS(text, langKey) {
-    if (navigator.onLine) {
+// Play high-quality neural voice via Google Translate TTS reusing global player
+function playOnlineTTS(text, langKey, player) {
+    if (!player) player = document.getElementById('globalAudioPlayer');
+    
+    if (navigator.onLine && player) {
         const googleLangCodes = {
             english: 'en',
             vietnamese: 'vi',
@@ -561,15 +594,13 @@ function playOnlineTTS(text, langKey) {
         const langCode = googleLangCodes[langKey] || 'en';
         const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${langCode}&client=tw-ob&q=${encodeURIComponent(text)}`;
         
-        const audio = new Audio(ttsUrl);
-        currentPlayingAudio = audio;
-
-        audio.play()
+        player.src = ttsUrl;
+        player.play()
             .then(() => {
                 console.log(`Playing Google Translate Neural TTS (${langKey}): "${text}"`);
             })
             .catch(err => {
-                console.warn("Google TTS failed, falling back to local Web Speech API:", err);
+                console.warn("Google TTS failed to play, falling back to local Web Speech API:", err);
                 playWebSpeech(text, langKey);
             });
     } else {
@@ -706,10 +737,10 @@ function hideOverlay() {
     }
     if (overlayTimeout) clearTimeout(overlayTimeout);
     
-    // Stop custom audio playback if playing
-    if (currentPlayingAudio) {
-        currentPlayingAudio.pause();
-        currentPlayingAudio = null;
+    // Stop global audio player playback if playing
+    const player = document.getElementById('globalAudioPlayer');
+    if (player) {
+        player.pause();
     }
     
     // Stop speaking when closed manually
