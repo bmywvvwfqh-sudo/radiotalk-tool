@@ -680,6 +680,51 @@ main {
     display: block;
 }
 
+/* Hospital Logo Styling */
+.hospital-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(6, 182, 212, 0.4);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+}
+
+/* Warning Footer & Credits */
+.app-footer {
+    margin-top: 3.5rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.app-footer .disclaimer {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    line-height: 1.4;
+}
+
+.app-footer .disclaimer i {
+    color: var(--danger);
+}
+
+.app-footer .credits {
+    font-size: 0.8rem;
+    color: var(--primary);
+    font-family: var(--font-outfit);
+    font-weight: 600;
+    opacity: 0.9;
+    letter-spacing: 0.5px;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     header {
@@ -688,15 +733,29 @@ main {
         align-items: stretch;
     }
     .lang-selector {
-        margin-top: 0.5rem;
+        margin-top: 0.7rem;
+        justify-content: flex-start;
+        padding-bottom: 0.4rem;
+    }
+    .lang-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
     }
     .overlay-target {
-        font-size: 2.5rem;
+        font-size: 2.3rem;
     }
     .overlay-pronunciation {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
     .grid-layout {
         grid-template-columns: 1fr;
+    }
+    .app-footer {
+        margin-top: 2rem;
+        padding: 1rem 0;
+    }
+    .app-footer .disclaimer {
+        font-size: 0.75rem;
+        padding: 0 0.5rem;
     }
 }
