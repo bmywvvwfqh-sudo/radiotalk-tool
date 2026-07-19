@@ -1,4 +1,4 @@
-const CACHE_NAME = 'radiotalk-cache-v3';
+const CACHE_NAME = 'radiotalk-cache-v4';
 const ASSETS = [
   'index.html',
   'styles.css',
