@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --bg-dark: #0b0f19;
-    --bg-card: rgba(30, 41, 59, 0.4);
-    --border-color: rgba(255, 255, 255, 0.08);
-    --border-hover: rgba(6, 182, 212, 0.4);
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --primary: #06b6d4;
-    --primary-glow: rgba(6, 182, 212, 0.15);
-    --accent: #22d3ee;
-    --danger: #ef4444;
-    --danger-glow: rgba(239, 68, 68, 0.2);
-    --success: #10b981;
-    --success-glow: rgba(16, 185, 129, 0.2);
+    --bg-dark: #f8fafc;
+    --bg-card: rgba(255, 255, 255, 0.55);
+    --border-color: rgba(148, 163, 184, 0.15);
+    --border-hover: rgba(6, 182, 212, 0.5);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --primary: #0891b2;
+    --primary-glow: rgba(8, 145, 178, 0.12);
+    --accent: #06b6d4;
+    --danger: #e11d48;
+    --danger-glow: rgba(225, 29, 72, 0.12);
+    --success: #059669;
+    --success-glow: rgba(5, 150, 105, 0.12);
     --font-outfit: 'Outfit', 'Inter', sans-serif;
 }
 
@@ -25,43 +25,44 @@
 }
 
 body {
-    background-color: var(--bg-dark);
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #faf5ff 100%);
     color: var(--text-primary);
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+    position: relative;
 }
 
-/* Background Glowing Orbs */
+/* Background Glowing Orbs (Vibrant & Colorful) */
 .orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(120px);
     z-index: -1;
-    opacity: 0.25;
+    opacity: 0.45;
 }
 .orb-1 {
     top: -10%;
     left: -10%;
-    width: 50vw;
-    height: 50vw;
-    background: radial-gradient(circle, var(--primary) 0%, transparent 80%);
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.35) 0%, transparent 80%);
 }
 .orb-2 {
     bottom: -10%;
     right: -10%;
-    width: 60vw;
-    height: 60vw;
-    background: radial-gradient(circle, #3b82f6 0%, transparent 80%);
+    width: 65vw;
+    height: 65vw;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, transparent 80%);
 }
 
 header {
-    background: rgba(15, 23, 42, 0.6);
+    background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     padding: 1.2rem 2rem;
     position: sticky;
     top: 0;
@@ -71,6 +72,7 @@ header {
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
+    box-shadow: 0 4px 30px rgba(15, 23, 42, 0.02);
 }
 
 .logo-section {
@@ -79,31 +81,24 @@ header {
     gap: 0.8rem;
 }
 
-.logo-section i {
-    font-size: 2rem;
-    color: var(--primary);
-    filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.5));
-}
-
 .logo-section h1 {
     font-family: var(--font-outfit);
     font-size: 1.5rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #fff 0%, #a5f3fc 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #0891b2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.5px;
 }
 
-.logo-section span {
-    font-size: 0.75rem;
-    background: rgba(6, 182, 212, 0.15);
-    border: 1px solid rgba(6, 182, 212, 0.3);
-    color: var(--primary);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-weight: 600;
-    text-transform: uppercase;
+/* Hospital Logo Styling */
+.hospital-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(6, 182, 212, 0.3);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.15);
 }
 
 /* Language Selection Grid */
@@ -113,15 +108,15 @@ header {
     overflow-x: auto;
     padding-bottom: 0.2rem;
     max-width: 100%;
-    scrollbar-width: none; /* Hide scrollbar for clean UI */
+    scrollbar-width: none;
 }
 .lang-selector::-webkit-scrollbar {
     display: none;
 }
 
 .lang-btn {
-    background: rgba(30, 41, 59, 0.5);
-    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.15);
     color: var(--text-secondary);
     padding: 0.6rem 1rem;
     border-radius: 30px;
@@ -134,6 +129,7 @@ header {
     gap: 0.5rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.01);
 }
 
 .lang-btn img {
@@ -141,24 +137,24 @@ header {
     height: 20px;
     border-radius: 50%;
     object-fit: cover;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(0,0,0,0.1);
 }
 
 .lang-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.9);
     color: var(--text-primary);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(6, 182, 212, 0.3);
 }
 
 .lang-btn.active {
     background: linear-gradient(135deg, var(--primary) 0%, #0891b2 100%);
     border-color: transparent;
-    color: var(--bg-dark);
-    box-shadow: 0 0 15px var(--primary-glow);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(8, 145, 178, 0.22);
 }
 
 .lang-btn.active img {
-    border-color: rgba(0,0,0,0.15);
+    border-color: rgba(255,255,255,0.2);
 }
 
 /* Main Content Area */
@@ -177,11 +173,13 @@ main {
 /* Categories Tab */
 .tabs-container {
     display: flex;
-    background: rgba(15, 23, 42, 0.4);
+    background: rgba(148, 163, 184, 0.06);
     border: 1px solid var(--border-color);
     padding: 0.4rem;
-    border-radius: 12px;
+    border-radius: 14px;
     gap: 0.3rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .tab-btn {
@@ -190,7 +188,7 @@ main {
     border: none;
     color: var(--text-secondary);
     padding: 0.8rem 1.5rem;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     font-family: var(--font-outfit);
     font-weight: 600;
@@ -207,10 +205,10 @@ main {
 }
 
 .tab-btn.active {
-    background: var(--bg-card);
+    background: rgba(255, 255, 255, 0.9);
     color: var(--primary);
-    border: 1px solid rgba(6, 182, 212, 0.2);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
 }
 
 /* Instruction Grid */
@@ -232,7 +230,7 @@ main {
 .command-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 1.5rem;
     cursor: pointer;
     display: flex;
@@ -242,8 +240,9 @@ main {
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
 }
 
 .command-card::before {
@@ -263,7 +262,7 @@ main {
 }
 .command-card.breath-hold:hover {
     border-color: var(--danger-glow);
-    box-shadow: 0 8px 24px var(--danger-glow);
+    box-shadow: 0 10px 30px var(--danger-glow);
 }
 
 .command-card.breath-normal::before {
@@ -271,13 +270,13 @@ main {
 }
 .command-card.breath-normal:hover {
     border-color: var(--success-glow);
-    box-shadow: 0 8px 24px var(--success-glow);
+    box-shadow: 0 10px 30px var(--success-glow);
 }
 
 .command-card:hover {
     transform: translateY(-4px);
     border-color: var(--border-hover);
-    box-shadow: 0 8px 24px var(--primary-glow);
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.12);
 }
 
 .command-card:active {
@@ -299,7 +298,7 @@ main {
 }
 
 .card-icon {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(148, 163, 184, 0.1);
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -340,7 +339,7 @@ main {
 }
 
 .command-card.breath-hold .card-pronunciation {
-    color: #f87171;
+    color: var(--danger);
 }
 
 /* Screen Overlay Visualizer for Patients */
@@ -350,7 +349,7 @@ main {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(7, 10, 20, 0.96);
+    background: rgba(248, 250, 252, 0.97);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     z-index: 1000;
@@ -374,8 +373,8 @@ main {
     position: absolute;
     top: 2rem;
     right: 2rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
+    background: rgba(15, 23, 42, 0.05);
+    border: 1px solid rgba(15, 23, 42, 0.08);
     color: var(--text-primary);
     width: 50px;
     height: 50px;
@@ -389,7 +388,7 @@ main {
 }
 
 .close-overlay:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(15, 23, 42, 0.1);
     transform: rotate(90deg);
 }
 
@@ -404,11 +403,11 @@ main {
     font-family: var(--font-outfit);
     font-size: 4rem;
     font-weight: 800;
-    color: #fff;
+    color: #0f172a;
     line-height: 1.3;
     max-width: 900px;
     margin-bottom: 1rem;
-    text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
 }
 
 .overlay-pronunciation {
@@ -449,20 +448,19 @@ main {
 
 .breathing-visual.hold .breath-circle {
     animation: holdAnim 1s infinite alternate;
-    background: radial-gradient(circle, rgba(239, 68, 68, 0.5) 0%, transparent 75%);
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.45) 0%, transparent 75%);
     border: 3px solid var(--danger);
-    box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.25);
 }
 
 .breathing-visual.normal .breath-circle {
     animation: normalAnim 4s infinite ease-in-out;
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 75%);
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, transparent 75%);
 }
 
 .breathing-icon {
     font-size: 4rem;
     z-index: 2;
-    filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
 }
 
 .breathing-visual.hold .breathing-icon {
@@ -484,15 +482,16 @@ main {
 
 /* Custom Translation Bar (Bottom Panel) */
 .custom-translate-panel {
-    background: rgba(15, 23, 42, 0.5);
+    background: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
-    border-radius: 20px;
+    border-radius: 24px;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    box-shadow: 0 4px 30px rgba(15, 23, 42, 0.02);
 }
 
 .custom-translate-title {
@@ -517,8 +516,8 @@ main {
 
 .translate-input {
     flex: 1;
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.2);
     border-radius: 12px;
     padding: 1rem;
     color: var(--text-primary);
@@ -530,12 +529,12 @@ main {
 .translate-input:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.15);
 }
 
 .voice-input-btn, .play-input-btn {
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(148, 163, 184, 0.2);
     color: var(--text-primary);
     width: 50px;
     height: 50px;
@@ -546,10 +545,11 @@ main {
     justify-content: center;
     font-size: 1.2rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.02);
 }
 
 .voice-input-btn:hover {
-    background: rgba(6, 182, 212, 0.15);
+    background: rgba(6, 182, 212, 0.1);
     color: var(--primary);
     border-color: var(--primary);
 }
@@ -569,8 +569,8 @@ main {
 
 /* Custom Translation Result Area */
 .translation-result-card {
-    background: rgba(15, 23, 42, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.15);
     border-radius: 12px;
     padding: 1rem;
     display: none;
@@ -592,7 +592,7 @@ main {
 .result-text {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-primary);
 }
 
 /* Keyframe Animations */
@@ -636,8 +636,8 @@ main {
 }
 
 @keyframes pulseMic {
-    0% { transform: scale(1); box-shadow: 0 0 0 rgba(239, 68, 68, 0.4); }
-    100% { transform: scale(1.1); box-shadow: 0 0 15px rgba(239, 68, 68, 0.8); }
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(239, 68, 68, 0.2); }
+    100% { transform: scale(1.1); box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
 }
 
 /* Toast Notification styling */
@@ -646,13 +646,13 @@ main {
     bottom: 2rem;
     left: 50%;
     transform: translateX(-50%) translateY(100px);
-    background: rgba(30, 41, 59, 0.95);
+    background: rgba(255, 255, 255, 0.95);
     border: 1px solid var(--primary);
-    color: #fff;
+    color: var(--text-primary);
     padding: 0.8rem 1.5rem;
     border-radius: 30px;
     font-weight: 600;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
     z-index: 2000;
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
@@ -678,16 +678,6 @@ main {
 
 .offline-banner.active {
     display: block;
-}
-
-/* Hospital Logo Styling */
-.hospital-logo {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid rgba(6, 182, 212, 0.4);
-    box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
 }
 
 /* Warning Footer & Credits */

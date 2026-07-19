@@ -1,11 +1,11 @@
-const CACHE_NAME = 'radiotalk-cache-v2';
+const CACHE_NAME = 'radiotalk-cache-v3';
 const ASSETS = [
   'index.html',
   'styles.css',
   'app.js',
   'manifest.json',
   'icon.png',
-  'logo.jpg'
+  'logo.png'
 ];
 
 // Install Service Worker and Cache Static Files
